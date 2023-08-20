@@ -1,25 +1,16 @@
 import java.awt.Font;
 
 import javax.swing.*;
-import java.awt.event.*;
 import javax.swing.event.*;
 import javax.swing.event.DocumentListener;  
 public class Main {  
-	
 public static void UpdateCounter(JTextArea MainText,JLabel WordCountLabel,JLabel CharactersCount){
-	String str = MainText.getText();
-	int words=1,flag=0,i=0;
-	while (i < str.length()){
-		if (str.charAt(i) == ' ' || str.charAt(i) == '\n' || str.charAt(i) == '\t')flag = 1;
-		else if (flag==1)
-		{		++words;
-				flag=0;
-		}
-		++i;
-	}
-	if(str.length()<=0)words=0;
+	String str = MainText.getText().strip();
+	int count = 0, i, word = 0;
+
+	String words[]=str.split(" ");
 	CharactersCount.setText("Characters : " + str.length());
-	WordCountLabel.setText("Total Words : "+words);
+	WordCountLabel.setText("Total Words : "+words.length);
 }
 Main(){  
 JFrame f = new JFrame();  
@@ -43,7 +34,7 @@ JFrame f = new JFrame();
   WordCountLabel.setBounds(10,460,200,20);
   CharactersCount.setBounds(10,490,200,20);
 
-  //MainText.setLineWrap(true);j
+  //MainText.setLineWrap(true);
  // MainText.setWrapStyleWord(true);
 	
  //style
@@ -78,19 +69,13 @@ JFrame f = new JFrame();
 				UpdateCounter(MainText, WordCountLabel,CharactersCount);
 			}
 	});  
-
-	ClearButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e){
-			MainText.setText("");
-		}
-	});
  //Adding component
   f.add(EnterStringLabel);
  f.add(MainText);
  f.add(ClearButton);
  f.add(WordCountLabel);
  f.add(CharactersCount);
-  f.setSize(535,600);		
+  f.setSize(530,600);		
   f.setResizable(true);
   f.setLayout(null);
   f.setLocationRelativeTo(null);
